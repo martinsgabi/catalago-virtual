@@ -1,27 +1,9 @@
-import { Box, Button, Checkbox, Container, FormControlLabel, Grid, TextField, Typography,  } from '@mui/material'
+import { Alert, Box, Button, Checkbox, Container, FormControlLabel, Grid, TextField, Typography,  } from '@mui/material'
 import React from 'react'
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import { useState, useEffect } from 'react';
 import { useNavigate, json } from 'react-router-dom';
 
-const theme = createTheme({
-    palette: {
-        mode: 'light',
-        primary: {
-          main: '#FF3B86',
-        },
-        secondary: {
-          main: '#801D43',
-        },
-        error: {
-          main: '#400F21',
-        },
-        background: {
-          default: '#fde3ed',
-          paper: '#FF87B5',
-        },
-      },
-})
 
 function Login() {
 
@@ -33,6 +15,7 @@ function Login() {
 
     const navigate = useNavigate();
 
+    /*as aspas do setEmail e o setSenha, são para deixar os campos vazios; o localStorage salva' os dados desses mesmos campos*/
     useEffect( () => {
 
         if( login ){
@@ -47,7 +30,7 @@ function Login() {
     function Autenticar( evento )
     {
         evento.preventDefault();
-        fetch( "https://api.escuelajs.co/api/v1/auth/login", {
+        fetch( "http://10.139.75.32:8080/login", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -55,17 +38,17 @@ function Login() {
             body: JSON.stringify(
                 {
                     email: email,
-                    password: senha
+                    senha: senha
                 }
             )
         } )
         .then( (resposta) => resposta.json() )
         .then( (json) => {
 
-            if( json.statusCode === 401 ){
-                setErro( true );
-            } else{
+            if( json.user ){
                 setLogin( true );
+            } else{
+                setErro( true );
             }
         } )
         .catch( (erro) => { setErro( true ) })
@@ -73,7 +56,7 @@ function Login() {
     }
 
   return (
-    <ThemeProvider theme={theme}>
+    
     <Container component="section" maxWidth="xs">
         <Box 
             sx={{
@@ -87,6 +70,7 @@ function Login() {
             }}>
 
             <Typography component="h1" variant='h4'>Entrar</Typography>
+            { erro && ( <Alert severity="warning">Revise seus dados e tente novamente</Alert> ) }
             <Box component="form" onSubmit={Autenticar}>
                 <TextField 
                 type="email" 
@@ -96,6 +80,7 @@ function Login() {
                 value={email}
                 onChange={ (e) => setEmail( e.target.value )}
                 fullWidth
+                
                 />
 
                 <TextField 
@@ -118,14 +103,16 @@ function Login() {
                         Esqueci a senha
                     </Grid>
                     <Grid item>
-                        Cadastrar
+                        
+                       <a href='http://localhost:3000/cadastro?'>Cadastrar</a>
+                        
                     </Grid>
                 </Grid>
                 
             </Box>
         </Box>
     </Container>
-    </ThemeProvider>
+    
   )
 }
 
