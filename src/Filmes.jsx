@@ -12,12 +12,12 @@ function Filmes() {
     const[ imagem, setImagem ] = useState( "" );
     const[ cadastroFilme, setCadastroFilme ] = useState( "" );
     const[ erroC, setErroC ] = useState( "" );
-
+//controlar estado de uma varialvel
 
     function CadastrarFilme(evento){
         evento.preventDefault();
 
-    fetch( "http://10.139.75.32:8080/filmes", {
+    fetch( process.env.REACT_APP_BACKEND + "filmes", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -36,7 +36,7 @@ function Filmes() {
             .then( (resposta) => resposta.json() )
             .then( (json) => {
     
-                if( json.titulo ){
+                if( json._id ){
                     setCadastroFilme( true );
                     setErroC( false );
                 } else{
@@ -71,8 +71,8 @@ function Filmes() {
             alignItems: "center",
         }}>
             <Typography component="h1" variant='h4'>Cadastro de Filmes</Typography>
-            { erroC && ( <Alert severity="warning" sx={{ mt: 2, mb: 2 }}>Desculpe tente novamente</Alert>)}
-            { cadastroFilme && ( <Alert severity="success" sx={{ mt: 2, mb: 2 }}>Obrigado por cadastrar</Alert>)}
+            { erroC && ( <Alert severity="warning" sx={{ mt: 2, mb: 2 }}>Desculpe, filme já cadastrado, tente novamente</Alert>)}
+            { cadastroFilme && ( <Alert severity="success" sx={{ mt: 2, mb: 2 }}>Obrigado por cadastrar</Alert>)}     
             <Box component="form" onSubmit={CadastrarFilme} >
                 <TextField
                     type="text"
@@ -126,7 +126,7 @@ function Filmes() {
 
                 <TextField
                     type="text"
-                    label="Imagem"
+                    label="Link da Imagem"
                     variant="filled"
                     margin="normal"
                     value={imagem}

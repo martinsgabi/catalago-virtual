@@ -30,7 +30,7 @@ function Login() {
     function Autenticar( evento )
     {
         evento.preventDefault();
-        fetch( "http://10.139.75.32:8080/login", {
+        fetch( process.env.REACT_APP_BACKEND + "login", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -107,8 +107,7 @@ function Login() {
                        <a href='http://localhost:3000/cadastro?'>Cadastrar</a>
                         
                     </Grid>
-                </Grid>
-                
+                </Grid>        
             </Box>
         </Box>
     </Container>
