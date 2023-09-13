@@ -2,19 +2,21 @@ import { Alert, Box, Button, Container, ImageList, ImageListItem, TextField, Typ
 import React from 'react'
 import { useState, useEffect } from 'react'
 
-function Filmes() {
+function Roupas() {
 
-    const[ titulo, setTitulo ] = useState( "" );
+    const[ peca, setPeca ] = useState( "" );
     const[ descricao, setDescricao ] = useState( "" );
+
     const[ ano, setAno ] = useState( "" );
     const[ duracao, setDuracao ] = useState( "" );
+    
     const[ categoria, setCategoria ] = useState( "" );
     const[ imagem, setImagem ] = useState( "" );
     const[ cadastroFilme, setCadastroFilme ] = useState( "" );
     const[ erroC, setErroC ] = useState( "" );
 //controlar estado de uma varialvel
 
-    function CadastrarFilme(evento){
+    function CadastrarRoupa(evento){
         evento.preventDefault();
 
     fetch( process.env.REACT_APP_BACKEND + "filmes", {
@@ -24,10 +26,10 @@ function Filmes() {
             },
             body: JSON.stringify(
                 {
-                    titulo: titulo,
+                    peca: peca,
                     descricao: descricao,
-                    ano: ano,
-                    duracao: duracao,
+                    ano: "",
+                    duracao: "",
                     categoria: categoria,
                     imagem: imagem
                 }
@@ -49,7 +51,7 @@ function Filmes() {
     
         useEffect( () => {
     
-            setTitulo( "" );
+            setPeca( "" );
             setDescricao( "" );
             setAno( "" );
             setDuracao( "" );
@@ -63,70 +65,47 @@ function Filmes() {
     <Container component="section" maxWidth="sm">
         <Box sx={{
             mt:10,
-            background: "#FCDADE",
+            background: "#FFE1D9",
             padding: "40px",
             borderRadius: "10px",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
         }}>
-            <Typography component="h1" variant='h4'>Cadastro de Filmes</Typography>
-            { erroC && ( <Alert severity="warning" sx={{ mt: 2, mb: 2 }}>Desculpe, filme já cadastrado, tente novamente</Alert>)}
+            <Typography component="h1" variant='h4'>Cadastrar uma peça</Typography>
+            { erroC && ( <Alert severity="warning" sx={{ mt: 2, mb: 2 }}>Desculpe, peça já cadastrada, tente novamente</Alert>)}
             { cadastroFilme && ( <Alert severity="success" sx={{ mt: 2, mb: 2 }}>Obrigado por cadastrar</Alert>)}     
-            <Box component="form" onSubmit={CadastrarFilme} >
+            <Box component="form" onSubmit={CadastrarRoupa} >
                 <TextField
                     type="text"
-                    label="Título"
+                    label="Qual a peça de roupa"
                     variant="filled"
                     margin="normal"
-                    value={titulo}
-                    onChange={ (e) => setTitulo( e.target.value )}
+                    value={peca}
+                    onChange={ (e) => setPeca( e.target.value )}
                     fullWidth
                 />
-
                 <TextField
                     type="text"
-                    label="Descrição"
+                    label="Descrição da peça"
                     variant="filled"
                     margin="normal"
                     value={descricao}
                     onChange={ (e) => setDescricao( e.target.value )}
                     fullWidth
                 />
-
-                <TextField
-                    type="number"
-                    label="Ano"
-                    variant="filled"
-                    margin="normal"
-                    value={ano}
-                    onChange={ (e) => setAno( e.target.value )}
-                    fullWidth
-                />
-
                 <TextField
                     type="text"
-                    label="Duração"
-                    variant="filled"
-                    margin="normal"
-                    value={duracao}
-                    onChange={ (e) => setDuracao( e.target.value )}
-                    fullWidth
-                />
-
-                <TextField
-                    type="text"
-                    label="Categoria"
+                    label="Categoria do peça"
                     variant="filled"
                     margin="normal"
                     value={categoria}
                     onChange={ (e) => setCategoria( e.target.value )}
                     fullWidth
                 />
-
                 <TextField
                     type="text"
-                    label="Link da Imagem"
+                    label="Foto da peça"
                     variant="filled"
                     margin="normal"
                     value={imagem}
@@ -134,7 +113,7 @@ function Filmes() {
                     fullWidth
                 />
 
-            <Button type="submit" variant="contained" fullWidth sx={ {mt: 2, mb: 2} }>Cadastrar filme</Button>
+            <Button type="submit" variant="contained" fullWidth sx={ {mt: 2, mb: 2} }>Cadastrar roupa</Button>
             </Box>
         </Box>
     </Container>
@@ -142,4 +121,4 @@ function Filmes() {
   )
 }
 
-export default Filmes
+export default Roupas

@@ -1,6 +1,8 @@
-import { Avatar, Button, Container } from "@mui/material";
+import { Avatar, Button, Container, Menu } from "@mui/material";
 import { useEffect, useState } from "react";
-import Filme from "./components/Filme";
+import Roupa from "./components/Filme";
+//import Menu from "./Menu";
+
 
 function App() {
 
@@ -40,7 +42,8 @@ function App() {
 
     return(
         <>
-            <h1>Filmes</h1>
+          
+            <h1>Novidades</h1>
             <Container sx={{
                 display:"flex",
                 flexFlow:"row",
@@ -49,7 +52,7 @@ function App() {
             }}>
             { filmes && (
                 filmes.map( (filme, index) => (
-                    <Filme 
+                    <Roupa
                     imagem={filme.imagem}
                     titulo={filme.titulo}
                     descricao={filme.descricao}

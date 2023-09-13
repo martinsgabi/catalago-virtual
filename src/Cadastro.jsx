@@ -60,7 +60,7 @@ function Cadastrar( evento ) {
     <Container component="section" maxWidth="sm">
         <Box sx={{
             mt:10,
-            background: "#FCDADE",
+            background: "#FFE1D9",
             padding: "40px",
             borderRadius: "10px",
             display: "flex",

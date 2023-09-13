@@ -7,7 +7,7 @@ function EditaFilme() {
 
   const { id } = useParams();
 
-  const[ titulo, setTitulo ] = useState( "" );
+  const[ peca, setPeca ] = useState( "" );
   const[ descricao, setDescricao ] = useState( "" );
   const[ ano, setAno ] = useState( "" );
   const[ duracao, setDuracao ] = useState( "" );
@@ -27,7 +27,7 @@ function EditaFilme() {
       .then( (resposta) => resposta.json() )
       .then( (json) => {
         if(!json.status) {
-          setTitulo(json.titulo);
+          setPeca(json.titulo);
           setDescricao(json.descricao);
           setAno(json.ano);
           setDuracao(json.duracao);
@@ -55,10 +55,10 @@ function EditaFilme() {
             body: JSON.stringify(
                 {
                   id: id,
-                  titulo: titulo,
+                  titulo: peca,
                   descricao: descricao,
-                  ano: ano,
-                  duracao: duracao,
+                  ano: "",
+                  duracao: "",
                   categoria: categoria,
                   imagem: imagem
                 }
@@ -93,7 +93,7 @@ function EditaFilme() {
     <Container component="section" maxWidth="sm">
       <Box sx={{
             mt:10,
-            background: "#FCDADE",
+            background: "#FFE1D9",
             padding: "40px",
             borderRadius: "10px",
             display: "flex",
@@ -106,44 +106,25 @@ function EditaFilme() {
           <Box component="form" onSubmit={Editar}>
             <TextField
                 type="text"
-                label="Título"
+                label="Qual a peça de roupa"
                 variant="filled"
                 margin="normal"
-                value={titulo}
-                onChange={ (e) => setTitulo( e.target.value )}
+                value={peca}
+                onChange={ (e) => setPeca( e.target.value )}
                 fullWidth              
             />
             <TextField 
                 type="text"
-                label="Descrição"
+                label="Descrição da peça"
                 variant="filled"
                 margin="normal"
                 value={descricao}
                 onChange={ (e) => setDescricao( e.target.value )}
                 fullWidth
             />
-
-            <TextField
-                type="number"
-                label="Ano"
-                variant="filled"
-                margin="normal"
-                value={ano}
-                onChange={ (e) => setAno( e.target.value )}
-                fullWidth
-            />
             <TextField
                 type="text"
-                label="Duração"
-                variant="filled"
-                margin="normal"
-                value={duracao}
-                onChange={ (e) => setDuracao( e.target.value )}
-                fullWidth
-            />
-            <TextField
-                type="text"
-                label="Categoria"
+                label="Categoria do peça"
                 variant="filled"
                 margin="normal"
                 value={categoria}
@@ -152,7 +133,7 @@ function EditaFilme() {
             />
             <TextField
                 type="text"
-                label="Link da Imagem"
+                label="Foto da peça"
                 variant="filled"
                 margin="normal"
                 value={imagem}

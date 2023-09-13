@@ -2,10 +2,8 @@ import { Card, CardActionArea, CardContent, CardMedia, Grid, Link, Typography } 
 import React from 'react'
 
 
-function Filme(props) {
+function Roupa(props) {
 
-
-    
   return (
     <Card sx={{ maxWidth: 345 }}>
         <CardActionArea>
@@ -47,4 +45,4 @@ function Filme(props) {
   )
 }
 
-export default Filme
+export default Roupa
