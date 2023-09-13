@@ -6,6 +6,9 @@ import { createTheme, ThemeProvider } from '@mui/material';
 import Login from './Login';
 import Cadastro from './Cadastro';
 import Filmes from './Filmes';
+import EditaFilme from './EditaFilme';
+
+
 
 const theme = createTheme({
   palette: {
@@ -42,6 +45,10 @@ const router = createBrowserRouter([
   {
     path: "/filmes",
     element: <Filmes />
+  },
+  {
+    path: "/edicao/:id",
+    element: <EditaFilme />
   }
 ])
 const root = ReactDOM.createRoot(document.getElementById('root'));
