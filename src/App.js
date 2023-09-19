@@ -1,12 +1,13 @@
-import { Avatar, Button, Container, Menu } from "@mui/material";
+import { Avatar, Button, Container } from "@mui/material";
 import { useEffect, useState } from "react";
 import Roupa from "./components/Filme";
-//import Menu from "./Menu";
+import MenuResponsivo from "./components/MenuResponsivo";
+import "./global.css"
 
 
 function App() {
 
-    const [ filmes, setFilmes ] = useState();
+    const [ roupas, setRoupas ] = useState();
     const [ erro, setErro ] = useState();
 
     useEffect(() => {
@@ -16,7 +17,7 @@ function App() {
             }
         } )
         .then( (resposta) => resposta.json() )
-        .then( (json) => { setFilmes (json)})
+        .then( (json) => { setRoupas (json)})
         .catch( (erro) => { setErro( true ) })
 
     }, [])
@@ -34,33 +35,32 @@ function App() {
         } )
         .then( (resposta) => resposta.json() )
         .then( (json) => {
-            const novaLista = filmes.filter( (filme) => filme._id !== id );
-            setFilmes( novaLista );
+            const novaLista = roupas.filter( (roupa) => roupa._id !== id );
+            setRoupas( novaLista );
         } )
         .catch( (erro) =>  setErro( true ) )
     }
 
     return(
         <>
-          
-            <h1>Novidades</h1>
+            <MenuResponsivo />
+            <h1>NOVIDADES</h1>
             <Container sx={{
                 display:"flex",
                 flexFlow:"row",
                 flexWrap:"wrap",
-                gap:"2rem"
+                gap:"2rem",
+
             }}>
-            { filmes && (
-                filmes.map( (filme, index) => (
+            { roupas && (
+                roupas.map( (roupa, index) => (
                     <Roupa
-                    imagem={filme.imagem}
-                    titulo={filme.titulo}
-                    descricao={filme.descricao}
-                    categoria={filme.categoria}
-                    ano={filme.ano}
-                    duracao={filme.duracao}
-                    excluir={ (e) => Excluir(e, filme._id) }
-                    id={filme._id}
+                    imagem={roupa.imagem}
+                    titulo={roupa.titulo}
+                    descricao={roupa.descricao}
+                    categoria={roupa.categoria}
+                    excluir={ (e) => Excluir(e, roupa._id) }
+                    id={roupa._id}
                     />
                 ) )
             )}

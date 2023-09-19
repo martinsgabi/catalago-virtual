@@ -24,7 +24,7 @@ const theme = createTheme({
       main: '#B9835B',
     },
     background: {
-      default: '#ffe1d9',
+      default: '#ffcdc0',
       paper: 'rgba(161,119,89,0.61)',
     },
     warning: {
@@ -54,13 +54,14 @@ const router = createBrowserRouter([
     element: <Cadastro />
   },
   {
-    path: "/filmes",
+    path: "/roupas",
     element: <Roupas />
   },
   {
     path: "/edicao/:id",
     element: <EditaRoupa />
-  }
+  },
+  
 ])
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

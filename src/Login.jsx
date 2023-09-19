@@ -3,6 +3,7 @@ import React from 'react'
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import { useState, useEffect } from 'react';
 import { useNavigate, json } from 'react-router-dom';
+import MenuResponsivo from './components/MenuResponsivo';
 
 
 function Login() {
@@ -56,20 +57,20 @@ function Login() {
     }
 
   return (
-    
+    <>
+    <MenuResponsivo/>
     <Container component="section" maxWidth="xs">
         <Box 
             sx={{
                 mt:20,
-                background: "#FCDADE",
-                padding: "50px",
+                padding: "5px",
                 borderRadius: "10px",
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
             }}>
 
-            <Typography component="h1" variant='h4'>Entrar</Typography>
+            <Typography component="h1" variant='h4'>ENTRAR</Typography>
             { erro && ( <Alert severity="warning">Revise seus dados e tente novamente</Alert> ) }
             <Box component="form" onSubmit={Autenticar}>
                 <TextField 
@@ -111,7 +112,7 @@ function Login() {
             </Box>
         </Box>
     </Container>
-    
+    </>
   )
 }
 
