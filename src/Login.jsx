@@ -20,7 +20,6 @@ function Login() {
     useEffect( () => {
 
         if( login ){
-            localStorage.setItem( "usuario", JSON.stringify( {email: email } ) );
             setEmail( "" );
             setSenha( "" );
             navigate( "/" );
@@ -46,10 +45,12 @@ function Login() {
         .then( (resposta) => resposta.json() )
         .then( (json) => {
 
-            if( json.user ){
-                setLogin( true );
-            } else{
-                setErro( true );
+            if (json.user) {
+                localStorage.setItem("usuario" , JSON.stringify( json.user._id ) );
+                setLogin(true);
+            } else {
+                localStorage.removeItem("usuario");
+                setErro(true);
             }
         } )
         .catch( (erro) => { setErro( true ) })
@@ -117,3 +118,5 @@ function Login() {
 }
 
 export default Login
+
+//id:650adfe72a26e4e19b7760f5

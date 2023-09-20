@@ -5,7 +5,7 @@ import MenuResponsivo from './components/MenuResponsivo';
 
 function Roupas() {
 
-    const [peca, setPeca] = useState("");
+    const [titulo, setTitulo] = useState("");
     const [descricao, setDescricao] = useState("");
 
     const [ano, setAno] = useState("");
@@ -20,19 +20,20 @@ function Roupas() {
     function CadastrarRoupa(evento) {
         evento.preventDefault();
 
-        fetch(process.env.REACT_APP_BACKEND + "filmes", {
+        fetch(process.env.REACT_APP_BACKEND + "produtos", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(
                 {
-                    peca: peca,
+                    titulo: titulo,
                     descricao: descricao,
                     ano: "",
                     duracao: "",
                     categoria: categoria,
-                    imagem: imagem
+                    imagem: imagem,
+                    usuario: localStorage.getItem( "usuario" )
                 }
             )
         })
@@ -52,7 +53,7 @@ function Roupas() {
 
     useEffect(() => {
 
-        setPeca("");
+        setTitulo("");
         setDescricao("");
         setAno("");
         setDuracao("");
@@ -83,8 +84,8 @@ function Roupas() {
                             label="Qual a peça de roupa"
                             variant="filled"
                             margin="normal"
-                            value={peca}
-                            onChange={(e) => setPeca(e.target.value)}
+                            value={titulo}
+                            onChange={(e) => setTitulo(e.target.value)}
                             fullWidth
                         />
                         <TextField
@@ -98,7 +99,7 @@ function Roupas() {
                         />
                         <TextField
                             type="text"
-                            label="Categoria do peça"
+                            label="Preço da peça"
                             variant="filled"
                             margin="normal"
                             value={categoria}

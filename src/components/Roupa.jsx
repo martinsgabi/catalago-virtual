@@ -9,7 +9,7 @@ function Roupa(props) {
         <CardActionArea>
             <CardMedia
                 component="img"
-                height="240"
+                height="400"
                 image={props.imagem}
                 alt={props.titulo}            
             />
@@ -35,10 +35,10 @@ function Roupa(props) {
         </CardActionArea>
         <Grid container>
             <Grid item xs={6}>
-                <button onClick={props.excluir}>X</button>
+                <button className='botaoExcluir' onClick={props.excluir}>⌦</button>
             </Grid>
             <Grid item xs={6}>
-                <Link  href={ "edicao/" + props.id }>Editar</Link>
+                <Link className='botaoEditar' href={ "edicao/" + props.id }>✎editar</Link>
             </Grid>
         </Grid>
     </Card>

@@ -1,6 +1,6 @@
 import { Avatar, Button, Container } from "@mui/material";
 import { useEffect, useState } from "react";
-import Roupa from "./components/Filme";
+import Roupa from "./components/Roupa";
 import MenuResponsivo from "./components/MenuResponsivo";
 import "./global.css"
 
@@ -9,9 +9,12 @@ function App() {
 
     const [ roupas, setRoupas ] = useState();
     const [ erro, setErro ] = useState();
+    
 
     useEffect(() => {
-        fetch( process.env.REACT_APP_BACKEND + "filmes", {
+        const usuario = localStorage.getItem( "usuario" );
+
+        fetch( process.env.REACT_APP_BACKEND + "produtos/" + usuario, {
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -24,13 +27,14 @@ function App() {
 
     function Excluir( evento, id ){
         evento.preventDefault();
-        fetch( process.env.REACT_APP_BACKEND + "filmes", {
+        fetch( process.env.REACT_APP_BACKEND + "produtos", {
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                    id: id
+                    id: id, 
+                    usuario: localStorage.getItem( "usuario" )
                 })
         } )
         .then( (resposta) => resposta.json() )

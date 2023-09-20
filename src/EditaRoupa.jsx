@@ -2,22 +2,26 @@ import { Alert, Box, Button, Container, TextField, Typography } from '@mui/mater
 import React from 'react'
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import MenuResponsivo from './components/MenuResponsivo';
 
 function EditaFilme() {
 
   const { id } = useParams();
 
-  const[ peca, setPeca ] = useState( "" );
+  const[ titulo, setTitulo ] = useState( "" );
   const[ descricao, setDescricao ] = useState( "" );
+
   const[ ano, setAno ] = useState( "" );
   const[ duracao, setDuracao ] = useState( "" );
+
   const[ categoria, setCategoria ] = useState( "" );
   const[ imagem, setImagem ] = useState( "" );
   const[ editar, setEditar ] = useState( "" );
   const[ erro, setErro ] = useState( "" );
   
   useEffect( () => {
-    fetch( process.env.REACT_APP_BACKEND + "filmes/" + id, {
+    const usuario = localStorage.getItem( "usuario" );
+    fetch( process.env.REACT_APP_BACKEND + "produtos/" + usuario + "/" + id, {
       method: "GET",
       headers: {
           'Content-Type': 'application/json'
@@ -27,14 +31,14 @@ function EditaFilme() {
       .then( (resposta) => resposta.json() )
       .then( (json) => {
         if(!json.status) {
-          setPeca(json.titulo);
+          setTitulo(json.titulo);
           setDescricao(json.descricao);
           setAno(json.ano);
           setDuracao(json.duracao);
           setCategoria(json.categoria);
           setImagem(json.imagem);
         }else {
-          setErro( "Filme não encontrado" );
+          setErro( "Roupa não encontrado" );
         }
         
           
@@ -47,7 +51,7 @@ function EditaFilme() {
   function Editar(evento){
     evento.preventDefault();
 
-    fetch( process.env.REACT_APP_BACKEND + "filmes", {
+    fetch( process.env.REACT_APP_BACKEND + "produtos", {
             method: "PUT",
             headers: {
                 'Content-Type': 'application/json'
@@ -55,12 +59,13 @@ function EditaFilme() {
             body: JSON.stringify(
                 {
                   id: id,
-                  titulo: peca,
+                  titulo: titulo,
                   descricao: descricao,
                   ano: "",
                   duracao: "",
                   categoria: categoria,
-                  imagem: imagem
+                  imagem: imagem,
+                  usuario: localStorage.getItem( "usuario" )
                 }
                 )
             } )
@@ -90,6 +95,8 @@ function EditaFilme() {
     }, [ cadastroFilme ] );*/
 
   return (
+    <>
+    <MenuResponsivo/>
     <Container component="section" maxWidth="sm">
       <Box sx={{
             mt:10,
@@ -109,8 +116,8 @@ function EditaFilme() {
                 label="Qual a peça de roupa"
                 variant="filled"
                 margin="normal"
-                value={peca}
-                onChange={ (e) => setPeca( e.target.value )}
+                value={titulo}
+                onChange={ (e) => setTitulo( e.target.value )}
                 fullWidth              
             />
             <TextField 
@@ -124,7 +131,7 @@ function EditaFilme() {
             />
             <TextField
                 type="text"
-                label="Categoria do peça"
+                label="Preço da peça"
                 variant="filled"
                 margin="normal"
                 value={categoria}
@@ -145,6 +152,7 @@ function EditaFilme() {
           </Box>
       </Box>
     </Container>
+    </>
   )
 }
 

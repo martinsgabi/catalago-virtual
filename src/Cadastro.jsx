@@ -18,7 +18,7 @@ function Cadastro() {
 
         evento.preventDefault();
 
-        fetch(process.env.REACT_APP_BACKEND + "users", {
+        fetch(process.env.REACT_APP_BACKEND + "usuarios", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
